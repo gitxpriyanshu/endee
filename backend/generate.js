@@ -1,35 +1,20 @@
-const { pipeline } = require("@xenova/transformers");
-
-let generator;
-
 async function generateAnswer(context, query) {
-    if (!generator) {
-        generator = await pipeline("text-generation", "Xenova/distilgpt2");
+    // For small demo purposes, trying to run a full LLM in Node.js 
+    // with @xenova/transformers (which is a tiny 80MB distilgpt2 model)
+    // often leads to severe hallucinations because it's just a text-completer.
+    
+    // Instead, to ensure a 100% reliable and professional demo for recruiters,
+    // we use an "extractive" approach. The AI (Vector DB) has already done the
+    // hard work of finding the semantically most similar sentence. We just present it cleanly.
+
+    if (!context || context.trim() === "") {
+        return "I couldn't find any relevant information in the database to answer your question.";
     }
 
-    const prompt = `System: You are an AI answering questions based ONLY on the context. If the answer is not in the context, say so.
-Context: ${context}
-Question: ${query}
-Answer:`;
+    // Grab the most relevant chunk from the context (which in our case is the first sentence)
+    const exactFact = context.split("  ").filter(s => s.trim().length > 0)[0];
 
-    const result = await generator(prompt, {
-        max_new_tokens: 25,
-        temperature: 0.1, // Lower temperature to make it deterministic and stick to context
-        repetition_penalty: 1.2
-    });
-
-    const text = result[0].generated_text;
-    
-    // Extract just the answer part
-    let cleaned = text.split("Answer:").pop().trim();
-    cleaned = cleaned.split("\n")[0].trim();
-    
-    if (!cleaned || cleaned.toLowerCase().includes("question:") || cleaned.length < 10) {
-        // Fallback to purely extractive summary if generation fails
-        cleaned = "Based on our data: " + context.substring(0, 100) + "...";
-    }
-
-    return cleaned;
+    return `Based on your semantic search, the most relevant information is: "${exactFact.trim()}".`;
 }
 
 module.exports = { generateAnswer };
