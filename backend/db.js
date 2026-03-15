@@ -1,7 +1,24 @@
-const Endee = require("../endee");
+const { Endee, Precision } = require("endee");
 
-const db = new Endee.VectorStore({
-  dimension: 384
-});
+const client = new Endee();
 
-module.exports = db;
+async function initDB() {
+    try {
+        await client.createIndex({
+            name: "notes",
+            dimension: 384,
+            spaceType: "cosine",
+            precision: Precision.INT8
+        });
+        console.log("Endee index 'notes' created");
+    } catch (err) {
+        if (err.message && err.message.includes("already exists")) {
+            console.log("Endee index 'notes' already exists, continuing.");
+        } else {
+            console.error("Error creating index:", err);
+        }
+    }
+    return await client.getIndex("notes");
+}
+
+module.exports = { initDB };

@@ -80,26 +80,27 @@ Relevant Result
 ## Project Structure
 
 ```
-endee-ai-semantic-search
+endee
 │
 ├── backend
-│   ├── server.js
+│   ├── db.js
+│   ├── generate.js
 │   ├── search.js
-│   ├── vector.js
-│   └── test.js
+│   ├── server.js
+│   ├── test.js
+│   └── vector.js
 │
 ├── frontend-app
 │   ├── src
 │   ├── public
 │   └── package.json
 │
-├── endee
-│
 ├── assets
 │   └── demo.png
 │
 ├── README.md
-└── package.json
+├── package.json
+└── [Endee core C++ source files and docs]
 ```
 
 ---
@@ -109,7 +110,7 @@ endee-ai-semantic-search
 ### 1. Clone the repository
 
 ```bash
-git clone <your-github-repo-link>
+git clone https://github.com/gitxpriyanshu/endee.git
 ```
 
 ---
