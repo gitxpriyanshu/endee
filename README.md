@@ -105,6 +105,14 @@ endee
 
 ---
 
+## Note Regarding Deployment
+
+While the frontend interface is deployed on Vercel (`https://endee-study-frontend.vercel.app/`), **the project requires the actual Endee Vector Database (a C++ engine) and the Node.js backend to run locally on your machine.**
+
+If you visit the live URL without running the database and backend locally, the Search and Add actions will fail (Connection Refused). To test the project properly, please follow the **Local Setup instructions** below.
+
+---
+
 ## Installation & Setup
 
 ### 1. Clone the repository
