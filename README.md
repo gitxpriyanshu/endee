@@ -115,23 +115,33 @@ git clone https://github.com/gitxpriyanshu/endee.git
 
 ---
 
-### 2. Install backend dependencies
+### 2. Start the Endee Vector Database
+
+Because this app is built on top of the real Endee engine, you must run it locally first:
 
 ```bash
+chmod +x ./run.sh
+./run.sh
+```
+
+The database will run on `http://localhost:8080`.
+
+---
+
+### 3. Install backend dependencies
+
+```bash
+cd backend
 npm install
 ```
 
 Run backend server:
 
 ```bash
-node backend/server.js
+node server.js
 ```
 
-Backend will start at:
-
-```
-http://localhost:3001
-```
+Backend will start at `http://localhost:3001`
 
 ---
 
