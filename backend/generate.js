@@ -11,10 +11,11 @@ async function generateAnswer(context, query) {
         return "I couldn't find any relevant information in the database to answer your question.";
     }
 
-    // Grab the most relevant chunk from the context (which in our case is the first sentence)
-    const exactFact = context.split("  ").filter(s => s.trim().length > 0)[0];
+    // Since server.js joins results with " ||| ", we can accurately split them back
+    // and just present the top (first) one as the extracted answer.
+    const exactFact = context.split(" ||| ")[0];
 
-    return `Based on your semantic search, the most relevant information is: "${exactFact.trim()}".`;
+    return `Based on your semantic search, the most relevant information is: "${exactFact.trim()}"`;
 }
 
 module.exports = { generateAnswer };

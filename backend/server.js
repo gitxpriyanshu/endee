@@ -65,7 +65,7 @@ app.post("/search", async (req, res) => {
 
         const results = await semanticSearch(indexDb, query);
 
-        const context = results.map(r => r.note).join(" ");
+        const context = results.map(r => r.note).join(" ||| ");
         const answer = await generateAnswer(context, query);
 
         res.json({
